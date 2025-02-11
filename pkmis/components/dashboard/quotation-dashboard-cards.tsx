@@ -1,18 +1,22 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getTotalNumberOfCompany } from "@/services/dashboard/get-number-of-company";
+import { getTotalApproved } from "@/services/Quotation/get-approved-Quotation";
 import { getTotalAvgPremium } from "@/services/Quotation/get-avg-premium";
 import { getMaxPremium } from "@/services/Quotation/get-max-premium";
+import { getAccepted } from "@/services/Quotation/get-total-accepted";
 import { getTotalPending } from "@/services/Quotation/get-total-pending-quotation";
 import { getTotalQuotation } from "@/services/Quotation/get-total-quotation";
 
 export async function QuotationDashboardCards() {
-  const totalSales = 10;
-  const totalProducts = 10;
-  const totalCustomers = 10;
+  
   const totalSuppliers = 10;
   const totalquotation = await getTotalQuotation()
   const totalavgpremium = await getTotalAvgPremium()
   const totalpending = await getTotalPending()
   const totalmaxpremium = await getMaxPremium()
+  const totalapproved = await getTotalApproved()
+  const totalNumber = await getTotalNumberOfCompany()
+  const totalaccepted = await getAccepted() 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card className="bg-red-50">
@@ -81,8 +85,8 @@ export async function QuotationDashboardCards() {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalCustomers}</div>
-          <p className="text-xs text-muted-foreground">Number of company: 2</p>
+          <div className="text-2xl font-bold">{Number(totalapproved)}</div>
+          <p className="text-xs text-muted-foreground">Number of company:${Number (totalNumber).toFixed(2)} </p>
         </CardContent>
       </Card>
       <Card className="bg-green-50">
@@ -105,8 +109,8 @@ export async function QuotationDashboardCards() {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalSuppliers}</div>
-          <p className="text-xs text-muted-foreground">Premium Amount: $500</p>
+          <div className="text-2xl font-bold">{Number (totalaccepted)}</div>
+          <p className="text-xs text-muted-foreground">Premium Amount: </p>
         </CardContent>
       </Card>
     </div>
